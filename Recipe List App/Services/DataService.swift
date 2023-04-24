@@ -26,14 +26,18 @@ class DataService {
             let decoder = JSONDecoder()
             
             do{
-                let jsonObject = try decoder.decode([Recipe].self, from: data)
+                let recipeObject = try decoder.decode([Recipe].self, from: data)
                 
                 // add id to each object
-                for item in jsonObject{
+                for item in recipeObject{
                     item.id = UUID()
+                    
+                    for item in item.ingredients{
+                        item.id = UUID()
+                    }
                 }
                 //update jsonObject in view model
-                return jsonObject
+                return recipeObject
             }
             catch{
                 print ("cannot parsing jsonObject")
