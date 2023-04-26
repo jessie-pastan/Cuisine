@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 
 struct RecipeDetailView: View {
-    
+    @State var portionsSelect = 2
     var recipe : Recipe
     var body: some View {
         
@@ -23,6 +23,19 @@ struct RecipeDetailView: View {
             //MARK: ingredeient
             
             VStack(alignment: .leading) {
+                
+                Text("Select Your Serving Size:")
+                Picker("", selection: $portionsSelect){
+                    Text("2").tag(2)
+                    Text("4").tag(4)
+                    Text("6").tag(6)
+                    Text("8").tag(8)
+                    
+                }
+                .pickerStyle(SegmentedPickerStyle())
+                .frame(width: 160)
+               
+                
                 Text("Ingredients")
                     .bold()
                     .font(.title2)
@@ -30,7 +43,7 @@ struct RecipeDetailView: View {
                     .padding(.top, 10)
                 
                 ForEach(recipe.ingredients) { item in
-                    Text("•" + item.name)
+                    Text("•" + RecipeModel.getIngredient(ingredient: item, recipeServing: recipe.servings, targetServing: portionsSelect) + " " + item.name)
                     //Text("•\(item.name)")
                     
                 }

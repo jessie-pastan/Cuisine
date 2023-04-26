@@ -17,7 +17,7 @@ struct RecipeFeaturedView: View {
                 .padding(.top,40)
             GeometryReader{geo in
                 TabView{
-                    ForEach(0..<model.recipes.count){ index in
+                    ForEach(0..<model.recipes.count, id: \.self){ index in
                         if model.recipes[index].featured == true {
                             //create featured cards
                                 ZStack {
